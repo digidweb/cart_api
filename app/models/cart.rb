@@ -115,6 +115,19 @@ class Cart < ApplicationRecord
     last_interaction_at && last_interaction_at < 30.minutes.ago
   end
 
+  # Retorna informações completas do carrinho incluindo itens
+  def detailed_summary
+    {
+      cart_id: id,
+      status: status,
+      items_count: items_count,
+      items: items_info,
+      total: total,
+      formatted_total: formatted_total,
+      last_interaction_at: last_interaction_at
+    }
+  end
+
   private
 
   def set_initial_status
@@ -133,18 +146,4 @@ class Cart < ApplicationRecord
   def items_info
     cart_items.includes(:product).map(&:info)
   end
-
-  # Retorna informações completas do carrinho incluindo itens
-  def detailed_summary
-    {
-      cart_id: id,
-      status: status,
-      items_count: items_count,
-      items: items_info,
-      total: total,
-      formatted_total: formatted_total,
-      last_interaction_at: last_interaction_at
-    }
-  end
-
 end
