@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  protect_from_forgery with: :null_session
 
   # Helper para encontrar ou criar carrinho na sessão
   before_action :set_cart
@@ -23,6 +22,4 @@ class ApplicationController < ActionController::API
   def current_cart
     @cart
   end
-
-  helper_method :current_cart
 end

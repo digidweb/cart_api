@@ -38,6 +38,27 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def update
+      quantity = params[:quantity].to_i
+
+      if quantity > 0 && current_cart.update_quantity(@cart_item.product, quantity)
+        if request.format.json?
+          render json: {
+            message: 'Quantidade atualizada',
+            cart: current_cart.summary
+          }, status: :ok
+        else
+          redirect_to cart_path, notice: 'Quantidade atualizada'
+        end
+      else
+        if request.format.json?
+          render json: { error: 'Erro ao atualizar quantidade' }, status: :unprocessable_entity
+        else
+          redirect_to cart_path, alert: 'Erro ao atualizar quantidade'
+        end
+      end
+    end
+
   # DELETE /cart_items/:id
   def destroy
     if current_cart.remove_product(@cart_item.product)
