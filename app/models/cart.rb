@@ -128,4 +128,23 @@ class Cart < ApplicationRecord
   def touch_interaction
     update_column(:last_interaction_at, Time.current)
   end
+
+  # Retorna array com informações de todos os itens
+  def items_info
+    cart_items.includes(:product).map(&:info)
+  end
+
+  # Retorna informações completas do carrinho incluindo itens
+  def detailed_summary
+    {
+      cart_id: id,
+      status: status,
+      items_count: items_count,
+      items: items_info,
+      total: total,
+      formatted_total: formatted_total,
+      last_interaction_at: last_interaction_at
+    }
+  end
+
 end

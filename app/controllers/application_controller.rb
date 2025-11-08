@@ -22,4 +22,6 @@ class ApplicationController < ActionController::API
   def current_cart
     @cart
   end
+
+  # helper_method :current_cart
 end

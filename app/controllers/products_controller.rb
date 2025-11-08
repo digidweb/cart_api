@@ -5,18 +5,12 @@ class ProductsController < ApplicationController
   def index
     @products = Product.by_name
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @products }
-    end
+    render json: @products if request.format.json?
   end
 
   # GET /products/:id
   def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @product }
-    end
+    render json: @product if request.format.json?
   end
 
   private
@@ -24,9 +18,10 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    respond_to do |format|
-      format.html { redirect_to products_path, alert: 'Produto não encontrado' }
-      format.json { render json: { error: 'Produto não encontrado' }, status: :not_found }
+    if request.format.json?
+      render json: { error: 'Produto não encontrado' }, status: :not_found
+    else
+      redirect_to products_path, alert: 'Produto não encontrado'
     end
   end
 end
