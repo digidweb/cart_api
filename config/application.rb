@@ -32,5 +32,8 @@ module CartApi
     config.session_store :cookie_store, key: '_cart_api_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+
+    # Usar Sidekiq como backend de jobs
+    config.active_job.queue_adapter = :sidekiq
   end
 end

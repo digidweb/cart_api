@@ -1,0 +1,13 @@
+:concurrency: 5
+:queues:
+  - default
+  - mailers
+
+# Configuração do Sidekiq Scheduler (se instalado)
+:scheduler:
+  :schedule:
+    cart_maintenance:
+      cron: "*/30 * * * *" # A cada 30 minutos
+      class: CartMaintenanceJob
+      queue: default
+      description: "Manutenção automática de carrinhos"
