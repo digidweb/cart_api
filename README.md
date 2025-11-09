@@ -23,7 +23,7 @@ API REST para gerenciamento de carrinho de compras de e-commerce.
 ### Com Docker (Recomendado)
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/cart-api.git
+git clone (https://github.com/digidweb/cart_api)
 cd cart-api
 
 # Inicie os containers
