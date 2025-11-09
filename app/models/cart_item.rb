@@ -42,7 +42,9 @@ class CartItem < ApplicationRecord
   # Retorna informações do item
   def info
     {
-      product: product.name,
+      id: id,
+      product_id: product.id,
+      product_name: product.name,
       quantity: quantity,
       unit_price: (product.price).to_f.round(2),
       subtotal: subtotal,
